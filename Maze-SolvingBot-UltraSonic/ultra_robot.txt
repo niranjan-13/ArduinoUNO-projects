@@ -1,0 +1,100 @@
+
+int trig = 11;
+int echo = 12;
+int dist;
+long dt;
+
+int rM1=6;
+int rM2=7;
+int lM1=3;
+int lM2=4;
+String voice;
+
+void setup() {
+  pinMode(trig,OUTPUT);
+  pinMode(echo,INPUT);
+  Serial.begin(9600);
+  pinMode(9,OUTPUT);
+
+   pinMode(rM1,OUTPUT);
+  pinMode(rM2,OUTPUT);
+  pinMode(lM1,OUTPUT);
+  pinMode(lM2,OUTPUT);
+  
+
+}
+
+void loop() {
+digitalWrite(9,1);
+  
+  digitalWrite(trig,0);
+  delayMicroseconds(2); 
+  digitalWrite(trig,1);
+  delayMicroseconds(10);
+  digitalWrite(trig,0);
+
+  dt= pulseIn(echo,1);
+
+  dist = (0.034*dt/2);
+  Serial.print("Distance = ");
+  Serial.println(dist);
+  delay(150);
+  
+  if (dist <20)
+  {
+    backward();
+    delay(80);
+    
+    
+    }
+    else 
+  {
+    forward();
+    delay(80);
+    
+    }
+  
+  
+}
+
+void forward()
+  {
+    analogWrite(rM1,150);
+    analogWrite(rM2,0);
+
+    analogWrite(lM1,150);
+    analogWrite(lM2,0);
+   }
+void right()
+{
+    analogWrite(rM1,0);
+    analogWrite(rM2,0);
+
+    analogWrite(lM1,150);
+    analogWrite(lM2,0);
+}
+void left()
+{
+    analogWrite(rM1,150);
+    analogWrite(rM2,0);
+
+    analogWrite(lM1,0);
+    analogWrite(lM2,0);
+}
+void Stop()
+{
+    analogWrite(rM1,0);
+    analogWrite(rM2,0);
+
+    analogWrite(lM1,0);
+    analogWrite(lM2,0);
+   
+}
+void backward()
+{
+    analogWrite(rM1,150);
+    analogWrite(rM2,0);
+
+    analogWrite(lM1,0);
+    analogWrite(lM2,150);
+}
